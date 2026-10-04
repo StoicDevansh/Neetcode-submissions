@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+
+        vector<vector<string>> result;
+        vector<string> sortedStrings;
+
+        for (int i = 0; i < strs.size(); i++) {
+            string sortedString = strs[i];
+            sort(sortedString.begin(), sortedString.end());
+
+            sortedStrings.push_back(sortedString);
+        }
+
+        for (int i = 0; i < strs.size(); i++) {
+
+            bool found = false;
+
+            for (int j = 0; j < result.size(); j++) {
+
+                string groupKey = result[j][0];
+                sort(groupKey.begin(), groupKey.end());
+
+                if (sortedStrings[i] == groupKey) {
+                    result[j].push_back(strs[i]);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                result.push_back({strs[i]});
+            }
+        }
+
+        return result;
+    }
+};
